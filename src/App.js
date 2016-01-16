@@ -33,12 +33,28 @@ export default class App extends React.Component {
     };
   }
   componentWillMount() {
+    var self = this;
     this.myFirebaseRef.on("child_added", (dataSnapshot) => {
       let newData = this.state.rawData;
       newData[dataSnapshot.key()] =  dataSnapshot.val();
       this.setState({
         rawData: newData
       });
+    })
+    this.myFirebaseRef.on("child_changed", (dataSnapshot) => {
+      console.log('child changed: ' + dataSnapshot.key())
+      let allData = this.state.rawData;
+      console.log(allData)
+      allData[dataSnapshot.key()] = dataSnapshot.val();
+      console.log('after replacement')
+      console.log(allData)
+      console.log('processing')
+      self.processRoom(allData);
+      //let newProcessed = this.processRoom(allData);
+      //this.setState({
+      //  rawData: allData,
+      //  derivedStats: newProcessed
+      //})
     })
   }
   componentWillUnmount() {
@@ -47,8 +63,7 @@ export default class App extends React.Component {
   processRoom(data) {
     let results = _.reduce(data, (acc, value, i, arr) => {
       let {messages, playlist, settings } = value;
-      console.log(i)
-      console.log(value)
+      // initialization
       if (!Object.keys(acc).length) {
         // initialization conditions
         acc.totalRooms = 0;
