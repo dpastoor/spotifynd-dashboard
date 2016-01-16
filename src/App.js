@@ -8,13 +8,15 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import MyRawTheme from './css/materialThemeCustomizations';
 import DashboardWidgets from './components/DashboardWidgets';
 import axios from 'axios';
+import Firebase from 'firebase';
 let fixtures = require('./fixtures/userData.js');
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items:  []
+      data:  []
     }
+    this.myFirebaseRef = new Firebase('https://spotyfind.firebaseio.com/');
   }
 
 // want to add colors to context to make available to other components
@@ -38,8 +40,19 @@ export default class App extends React.Component {
       muiTheme: ThemeManager.getMuiTheme(MyRawTheme)
     };
   }
+  componentWillMount() {
+    this.myFirebaseRef.on("child_added", (dataSnapshot) => {
+      this.setState({
+        data: this.state.data.concat(dataSnapshot.val())
+      });
+    })
+  }
+  componentWillUnmount() {
+    this.myFirebaseRef.off()
+  }
 
   render() {
+    console.log(this.state.data)
     return (
       <div>
         <AppBar
