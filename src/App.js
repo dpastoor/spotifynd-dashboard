@@ -25,16 +25,6 @@ export default class App extends React.Component {
     muiTheme: React.PropTypes.object
   };
 
-  componentWillMount() {
-    //axios.get('/api/items/')
-    //  .then(function(res) {
-    //    console.log('recieved items');
-    //    console.log(res)
-    //    this.setState({
-    //      items: res.data
-    //    })
-    //  }.bind(this))
-  }
   getChildContext() {
     return {
       muiTheme: ThemeManager.getMuiTheme(MyRawTheme)
@@ -48,11 +38,11 @@ export default class App extends React.Component {
     })
   }
   componentWillUnmount() {
-    this.myFirebaseRef.off()
+    this.myFirebaseRef.off();
   }
 
   render() {
-    console.log(this.state.data)
+    console.log(this.state.data);
     return (
       <div>
         <AppBar
