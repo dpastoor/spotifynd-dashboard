@@ -9,6 +9,7 @@ import MyRawTheme from './css/materialThemeCustomizations';
 import DashboardWidgets from './components/DashboardWidgets';
 import axios from 'axios';
 import Firebase from 'firebase';
+import _ from 'lodash';
 let fixtures = require('./fixtures/userData.js');
 export default class App extends React.Component {
   constructor(props) {
@@ -42,16 +43,53 @@ export default class App extends React.Component {
   }
   processRoom(data) {
     let results = data.reduce((acc, value, i, arr) => {
-      let {message, playlist, settings } = value;
+      let {messages, playlist, settings } = value;
       if (!i) {
         // initialization conditions
         acc.totalRooms = 0;
+        acc.playlistsPerRoom = {};
+        acc.activityLocations = [];
+        acc.messagesPerRoom = {};
+        acc.hasLocation = 0;
+        acc.locations = [];
+        acc.createdAt = [];
+      }
+
+      // increment number of rooms
+      acc.totalRooms = acc.totalRooms + 1;
+
+      // distribution of number of playlists per room
+      let numPlaylists = playlist ? Object.keys(playlist).length : 0;
+      if (!acc.playlistsPerRoom[numPlaylists]) {
+        acc.playlistsPerRoom[numPlaylists] = 1
       } else {
-        acc.totalRooms = acc.totalRooms + 1;
+        acc.playlistsPerRoom[numPlaylists] = acc.playlistsPerRoom[numPlaylists] + 1
+      }
+      //activity locations
+      if (playlist) {
+        _.forEach(playlist, (activity) => {
+          if (activity.lat) {
+            acc.activityLocations.push([activity.lat, activity.lng])
+          }
+        })
+      }
+      // distribution of number of messages per room
+      let numMessages = messages.length ? 1 : Object.keys(messages).length;
+      if (!acc.messagesPerRoom[numMessages]) {
+        acc.messagesPerRoom[numMessages] = 1
+      } else {
+        acc.messagesPerRoom[numMessages] = acc.messagesPerRoom[numMessages] + 1
+      }
+
+      // hasLocation
+      if (settings.createdAt) {
+        acc.hasLocation += 1;
+        acc.locations.push(settings.location);
+        acc.createdAt.push(settings.createdAt);
       }
       console.log('details')
       console.log('message')
-      console.log(message)
+      console.log(messages)
       console.log('playlist')
       console.log(playlist)
       console.log('setting')
