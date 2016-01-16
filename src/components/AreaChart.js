@@ -28,8 +28,7 @@ export default class AreaChartWidget extends React.Component {
 
     return (
       <Paper style={{
-      height: 400,
-      width: '46vw'
+      padding: 10
       }}>
         <AreaChart
           data={processedData}
@@ -39,7 +38,7 @@ export default class AreaChartWidget extends React.Component {
               x: 0,
               y: 0,
               height: 300,
-              width: 650
+              width: 600
             }}
           xAxisLabel="Time"
           yAxisLabel="Trips Planned and Total Rooms"

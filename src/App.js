@@ -132,7 +132,14 @@ export default class App extends React.Component {
           maxHeight: '3vw'
           }}
         />
-        <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', justifyContent: 'center'}}>
+        <div
+          style={{
+          display: 'flex',
+          flexFlow: 'row nowrap',
+          alignItems: 'center',
+          justifyContent: 'center'
+          }}
+        >
           <Paper style={paperStyles} >
             TripLists Created: {this.state.derivedStats.totalRooms}
           </Paper>
@@ -156,25 +163,37 @@ export default class App extends React.Component {
             width: '100vw',
             height: '40vh',
             display: 'flex',
-            flexWrap: 'wrap'
+            flexWrap: 'wrap',
+          alignItems: 'center',
+          justifyContent: 'center'
           }}
         >
           <BarChartWidgets data={this.state.derivedStats} />
         </div>
-        <div style={{width: '95vw', height: '40vh', display: 'flex', flexWrap: 'wrap'}}>
+        <div
+        style={{
+          width: '100vw',
+          height: '40vh',
+          display: 'flex',
+          flexFlow: 'row nowrap'
+          }}
+        >
           <div style={{
-          flex: 1,
             width: '40vw',
             height: '40vh',
-            margin: 10
+            flex: 1,
+            marginRight: '2vw',
+            marginLeft: '2vw',
+            paddingLeft: 5
           }}>
             <AreaChartWidget data={this.state.derivedStats.createdAt}></AreaChartWidget>
           </div>
           <div style={{
-            flex: 1,
             width: '40vw',
             height: '40vh',
-            margin: 10
+            flex: 1,
+            marginRight: '2vw',
+            marginLeft: '2vw'
         }}>
             <Map data={this.state.derivedStats.activityLocations} />
           </div>
