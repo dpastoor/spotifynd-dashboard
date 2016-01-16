@@ -46,15 +46,10 @@ export default class App extends React.Component {
       let allData = this.state.rawData;
       console.log(allData)
       allData[dataSnapshot.key()] = dataSnapshot.val();
-      console.log('after replacement')
-      console.log(allData)
-      console.log('processing')
       self.processRoom(allData);
-      //let newProcessed = this.processRoom(allData);
-      //this.setState({
-      //  rawData: allData,
-      //  derivedStats: newProcessed
-      //})
+      this.setState({
+        rawData: allData
+      })
     })
   }
   componentWillUnmount() {
