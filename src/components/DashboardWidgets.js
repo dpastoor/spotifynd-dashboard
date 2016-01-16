@@ -2,21 +2,20 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import {Card, List, ListItem} from 'material-ui';
-import InventoryItem from './InventoryItem';
+import MessageDistribution from './MessageDistribution';
 import moment from 'moment';
-export default class InventoryList extends React.Component {
+export default class DashboardWidgets extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    let data = this.props.data;
-    console.log(data);
-    let inventoryItems = _.map(data, (a, i) => (
+    let data = [1, 2, 3, 4]
+    let dashboardWidgets = _.map(data, (a, i) => (
       <div
         key={i}
       >
-        <InventoryItem
+        <MessageDistribution
           {...a}
         />
       </div>
@@ -36,14 +35,14 @@ export default class InventoryList extends React.Component {
         fontSize: 20,
         textAlign: 'center'
            }}>
-            What items would you like to check out?
+            Check out these stats
           </div>
           <div
             style={{
               margin: 'auto 5vw auto 5vw'
             }}
           >
-            {inventoryItems}
+            {dashboardWidgets}
           </div>
         </List>
       </Card>

@@ -6,7 +6,7 @@ require('./main.scss');
 import NavigationClose from 'material-ui/lib/svg-icons/navigation/close';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import MyRawTheme from './css/materialThemeCustomizations';
-import InventoryList from './components/InventoryList';
+import DashboardWidgets from './components/DashboardWidgets';
 import axios from 'axios';
 let fixtures = require('./fixtures/userData.js');
 export default class App extends React.Component {
@@ -51,7 +51,7 @@ export default class App extends React.Component {
 
         />
         <div>
-          <InventoryList data={this.state.items} />
+          <DashboardWidgets data={this.state.items} />
         </div>
       </div>
     );
