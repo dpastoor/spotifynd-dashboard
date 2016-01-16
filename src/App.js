@@ -151,22 +151,33 @@ export default class App extends React.Component {
           }, 0)}
           </Paper>
         </div>
-        <div style={{width: '100vw', height: '40vh', display: 'flex', flexWrap: 'wrap'}}>
+        <div
+          style={{
+            width: '100vw',
+            height: '40vh',
+            display: 'flex',
+            flexWrap: 'wrap'
+          }}
+        >
           <BarChartWidgets data={this.state.derivedStats} />
         </div>
-        <div style={{
-        width: '40vw',
-        height: '40vh',
-        margin: 10
+        <div style={{width: '95vw', height: '40vh', display: 'flex', flexWrap: 'wrap'}}>
+          <div style={{
+          flex: 1,
+            width: '40vw',
+            height: '40vh',
+            margin: 10
+          }}>
+            <AreaChartWidget data={this.state.derivedStats.createdAt}></AreaChartWidget>
+          </div>
+          <div style={{
+            flex: 1,
+            width: '40vw',
+            height: '40vh',
+            margin: 10
         }}>
-          <AreaChartWidget data={this.state.derivedStats.createdAt}></AreaChartWidget>
-        </div>
-        <div style={{
-        width: '40vw',
-        height: '40vh',
-        margin: 10
-        }}>
-          <Map data={this.state.derivedStats.activityLocations} />
+            <Map data={this.state.derivedStats.activityLocations} />
+          </div>
         </div>
       </div>
     );

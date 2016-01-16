@@ -29,8 +29,7 @@ export default class AreaChartWidget extends React.Component {
     return (
       <Paper style={{
       height: 400,
-      width: '46vw',
-      margin: 10
+      width: '46vw'
       }}>
         <AreaChart
           data={processedData}
