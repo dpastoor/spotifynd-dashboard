@@ -7,6 +7,7 @@ import NavigationClose from 'material-ui/lib/svg-icons/navigation/close';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import MyRawTheme from './css/materialThemeCustomizations';
 import BarChartWidgets from './components/BarChartWidgets';
+import Map from './components/Map';
 import axios from 'axios';
 import Firebase from 'firebase';
 import _ from 'lodash';
@@ -149,8 +150,15 @@ export default class App extends React.Component {
           }, 0)}
           </Paper>
         </div>
-        <div style={{width: '100vw', height: '90vh', display: 'flex', flexWrap: 'wrap'}}>
+        <div style={{width: '100vw', height: '40vh', display: 'flex', flexWrap: 'wrap'}}>
           <BarChartWidgets data={this.state.derivedStats} />
+        </div>
+        <div style={{
+        width: '40vw',
+        height: '40vh',
+        }}>
+          map
+          <Map />
         </div>
       </div>
     );
