@@ -14,7 +14,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data:  []
+      rawData:  []
     }
     this.myFirebaseRef = new Firebase('https://spotyfind.firebaseio.com/');
   }
@@ -33,21 +33,45 @@ export default class App extends React.Component {
   componentWillMount() {
     this.myFirebaseRef.on("child_added", (dataSnapshot) => {
       this.setState({
-        data: this.state.data.concat(dataSnapshot.val())
+        rawData: this.state.rawData.concat(dataSnapshot.val())
       });
     })
   }
   componentWillUnmount() {
     this.myFirebaseRef.off();
   }
+  processRoom(data) {
+    let results = data.reduce((acc, value, i, arr) => {
+      let {message, playlist, settings } = value;
+      if (!i) {
+        // initialization conditions
+        acc.totalRooms = 0;
+      } else {
+        acc.totalRooms = acc.totalRooms + 1;
+      }
+      console.log('details')
+      console.log('message')
+      console.log(message)
+      console.log('playlist')
+      console.log(playlist)
+      console.log('setting')
+      console.log(settings)
+
+      return acc
+    }, {})
+    console.log('results');
+    console.log(results);
+  }
 
   render() {
-    console.log(this.state.data);
     return (
       <div>
         <AppBar
           title={<span> Analytics Dashboard </span>}
-          iconElementRight={<FlatButton label="Logout" />}
+          iconElementRight={<FlatButton
+          label="Logout"
+          onClick={() => this.processRoom(this.state.rawData)}
+           />}
           style={{
           maxHeight: '3vw'
           }}
