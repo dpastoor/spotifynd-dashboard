@@ -15,6 +15,7 @@ let paperStyles = {
   margin: 10,
   marginBottom: 0, // as already margin top on plots below
   padding: 5,
+  fontSize: 22,
   textAlign: 'center',
   display: 'inline-block'
 };
@@ -138,7 +139,7 @@ export default class App extends React.Component {
           </Paper>
           <Paper style={paperStyles} >
             Activities Planned: {_.reduce(this.state.derivedStats.playlistsPerRoom, (acc, value, i) => {
-                console.log('calculating')
+                console.log('calculating');
                 return acc + value*parseInt(i);
           }, 0)}
           </Paper>
