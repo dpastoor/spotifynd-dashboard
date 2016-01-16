@@ -85,7 +85,7 @@ export default class App extends React.Component {
       if (settings.createdAt) {
         acc.hasLocation += 1;
         acc.locations.push(settings.location);
-        acc.createdAt.push(settings.createdAt);
+        acc.createdAt.push({createdAt: settings.createdAt, populatedRooms: acc.hasLocation, totalRooms: acc.totalRooms});
       }
       console.log('details')
       console.log('message')
