@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link } from 'react-router';
-import {AppBar, IconButton, FlatButton, RaisedButton} from 'material-ui';
+import {AppBar, IconButton, FlatButton, RaisedButton, Paper} from 'material-ui';
 require('./main.scss');
 import NavigationClose from 'material-ui/lib/svg-icons/navigation/close';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
@@ -11,6 +11,15 @@ import axios from 'axios';
 import Firebase from 'firebase';
 import _ from 'lodash';
 let fixtures = require('./fixtures/userData.js');
+let paperStyles = {
+  width: '20vw',
+  margin: 10,
+  marginBottom: 0, // as already margin top on plots below
+  padding: 5,
+  textAlign: 'center',
+  display: 'inline-block'
+};
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -44,7 +53,6 @@ export default class App extends React.Component {
     this.myFirebaseRef.on("child_changed", (dataSnapshot) => {
       console.log('child changed: ' + dataSnapshot.key())
       let allData = this.state.rawData;
-      console.log(allData)
       allData[dataSnapshot.key()] = dataSnapshot.val();
       self.processRoom(allData);
       this.setState({
@@ -114,14 +122,24 @@ export default class App extends React.Component {
         <AppBar
           title={<span> Analytics Dashboard </span>}
           iconElementRight={<FlatButton
-          label="Logout"
+          label="Recalculate"
           onClick={() => this.processRoom(this.state.rawData)}
            />}
           style={{
           maxHeight: '3vw'
           }}
-
         />
+        <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', justifyContent: 'center'}}>
+          <Paper style={paperStyles} >
+            some smaller calculations:
+          </Paper>
+          <Paper style={paperStyles} >
+            totalrooms: {this.state.derivedStats.totalRooms}
+          </Paper>
+          <Paper style={paperStyles} >
+            rooms with locations: {this.state.derivedStats.hasLocation}
+          </Paper>
+        </div>
         <div style={{width: '100vw', height: '90vh', display: 'flex', flexWrap: 'wrap'}}>
           <BarChartWidgets data={this.state.derivedStats} />
         </div>
