@@ -12,7 +12,6 @@ import Firebase from 'firebase';
 import _ from 'lodash';
 let fixtures = require('./fixtures/userData.js');
 let paperStyles = {
-  width: '20vw',
   margin: 10,
   marginBottom: 0, // as already margin top on plots below
   padding: 5,
@@ -117,6 +116,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.derivedStats)
     return (
       <div>
         <AppBar
@@ -131,13 +131,21 @@ export default class App extends React.Component {
         />
         <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', justifyContent: 'center'}}>
           <Paper style={paperStyles} >
-            some smaller calculations:
-          </Paper>
-          <Paper style={paperStyles} >
             totalrooms: {this.state.derivedStats.totalRooms}
           </Paper>
           <Paper style={paperStyles} >
             rooms with locations: {this.state.derivedStats.hasLocation}
+          </Paper>
+          <Paper style={paperStyles} >
+            Total Number of Activities: {_.reduce(this.state.derivedStats.playlistsPerRoom, (acc, value, i) => {
+                console.log('calculating')
+                return acc + value*parseInt(i);
+          }, 0)}
+          </Paper>
+          <Paper style={paperStyles} >
+            Total Number of Messages: {_.reduce(this.state.derivedStats.messagesPerRoom, (acc, value, i) => {
+            return acc + value*parseInt(i);
+          }, 0)}
           </Paper>
         </div>
         <div style={{width: '100vw', height: '90vh', display: 'flex', flexWrap: 'wrap'}}>
