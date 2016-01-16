@@ -65,6 +65,7 @@
     "phantomjs": "^1.9.19",
     "qs": "^6.0.1",
     "react": "^0.14.5",
+    "react-d3": "^0.4.0",
     "react-date-range": "^0.1.8",
     "react-daterange-picker": "^1.0.0",
     "react-dom": "^0.14.5",

@@ -4,14 +4,16 @@ import _ from 'lodash';
 import {Card, List, ListItem} from 'material-ui';
 import MessageDistribution from './MessageDistribution';
 import moment from 'moment';
-export default class DashboardWidgets extends React.Component {
+import {BarChart} from 'react-d3';
+export default class BarChartWidgets extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    let data = [1, 2 ];
-    let dashboardWidgets = _.map(data, (a, i) => (
+    let data = this.props.data;
+    let {messagesPerRoom, playlistsPerRoom} = data;
+    let dashboardWidgets = _.map([{data:messagesPerRoom, title: 'messages'}, {data:playlistsPerRoom, title: 'playlists'}], (a, i) => (
       <div
         style={{
         flex: 1,
@@ -28,7 +30,8 @@ export default class DashboardWidgets extends React.Component {
           }}
         >
           <MessageDistribution
-            val={i}
+            val={a.data}
+            title={a.title}
           />
         </Card>
       </div>
@@ -36,12 +39,8 @@ export default class DashboardWidgets extends React.Component {
     );
 
     return (
-
           <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                width: '100%',
-                height: '50%'
+                display: 'flex'
                 }}>
             {dashboardWidgets}
           </div>

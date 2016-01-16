@@ -6,7 +6,7 @@ require('./main.scss');
 import NavigationClose from 'material-ui/lib/svg-icons/navigation/close';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import MyRawTheme from './css/materialThemeCustomizations';
-import DashboardWidgets from './components/DashboardWidgets';
+import BarChartWidgets from './components/BarChartWidgets';
 import axios from 'axios';
 import Firebase from 'firebase';
 import _ from 'lodash';
@@ -15,7 +15,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rawData:  []
+      rawData:  [],
+      derivedStats: {}
     }
     this.myFirebaseRef = new Firebase('https://spotyfind.firebaseio.com/');
   }
@@ -33,6 +34,8 @@ export default class App extends React.Component {
   }
   componentWillMount() {
     this.myFirebaseRef.on("child_added", (dataSnapshot) => {
+      console.log('more data')
+      console.log(dataSnapshot.val())
       this.setState({
         rawData: this.state.rawData.concat(dataSnapshot.val())
       });
@@ -87,18 +90,12 @@ export default class App extends React.Component {
         acc.locations.push(settings.location);
         acc.createdAt.push({createdAt: settings.createdAt, populatedRooms: acc.hasLocation, totalRooms: acc.totalRooms});
       }
-      console.log('details')
-      console.log('message')
-      console.log(messages)
-      console.log('playlist')
-      console.log(playlist)
-      console.log('setting')
-      console.log(settings)
 
       return acc
-    }, {})
+    }, {});
     console.log('results');
     console.log(results);
+    this.setState({derivedStats: results})
   }
 
   render() {
@@ -116,8 +113,7 @@ export default class App extends React.Component {
 
         />
         <div style={{width: '100vw', height: '90vh', display: 'flex', flexWrap: 'wrap'}}>
-          <DashboardWidgets data={this.state.items} />
-          <DashboardWidgets data={this.state.items} />
+          <BarChartWidgets data={this.state.derivedStats} />
         </div>
       </div>
     );
