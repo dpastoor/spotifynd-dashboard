@@ -50,7 +50,14 @@ export default class App extends React.Component {
           }}
 
         />
-        <div>
+        <div
+        style={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between'
+        }}
+        >
           <DashboardWidgets data={this.state.items} />
         </div>
       </div>

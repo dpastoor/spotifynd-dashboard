@@ -12,40 +12,33 @@ export default class DashboardWidgets extends React.Component {
   render() {
     let data = [1, 2, 3, 4]
     let dashboardWidgets = _.map(data, (a, i) => (
-      <div
+      <Card
         key={i}
+        style={{
+        flex: 1,
+        width: '40vw',
+        margin: 10,
+        height: '40vh'
+        }}
       >
         <MessageDistribution
-          {...a}
+          val={i}
         />
-      </div>
+      </Card>
       )
     );
 
     return (
 
-    <Card style={{
-        flexGrow: 3,
-        minWidth: '10vw',
-        overflowY: 'auto'
-      }} >
-        <List>
           <div style={{
-        color: 'black',
-        fontSize: 20,
-        textAlign: 'center'
-           }}>
-            Check out these stats
-          </div>
-          <div
-            style={{
-              margin: 'auto 5vw auto 5vw'
-            }}
-          >
+                display: 'flex',
+                flexFlow: 'row wrap',
+                maxWidth: 1200,
+                width: '100%',
+                margin: '30px auto 30px'
+                }}>
             {dashboardWidgets}
           </div>
-        </List>
-      </Card>
     );
   }
 }
