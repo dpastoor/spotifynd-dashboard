@@ -156,9 +156,9 @@ export default class App extends React.Component {
         <div style={{
         width: '40vw',
         height: '40vh',
+        margin: 10
         }}>
-          map
-          <Map />
+          <Map data={this.state.derivedStats.activityLocations} />
         </div>
       </div>
     );
