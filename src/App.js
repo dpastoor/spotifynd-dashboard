@@ -15,7 +15,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rawData:  [],
+      rawData:  {},
       derivedStats: {}
     }
     this.myFirebaseRef = new Firebase('https://spotyfind.firebaseio.com/');
@@ -34,10 +34,10 @@ export default class App extends React.Component {
   }
   componentWillMount() {
     this.myFirebaseRef.on("child_added", (dataSnapshot) => {
-      console.log('more data')
-      console.log(dataSnapshot.val())
+      let newData = this.state.rawData;
+      newData[dataSnapshot.key()] =  dataSnapshot.val();
       this.setState({
-        rawData: this.state.rawData.concat(dataSnapshot.val())
+        rawData: newData
       });
     })
   }
@@ -45,9 +45,11 @@ export default class App extends React.Component {
     this.myFirebaseRef.off();
   }
   processRoom(data) {
-    let results = data.reduce((acc, value, i, arr) => {
+    let results = _.reduce(data, (acc, value, i, arr) => {
       let {messages, playlist, settings } = value;
-      if (!i) {
+      console.log(i)
+      console.log(value)
+      if (!Object.keys(acc).length) {
         // initialization conditions
         acc.totalRooms = 0;
         acc.playlistsPerRoom = {};
@@ -93,8 +95,6 @@ export default class App extends React.Component {
 
       return acc
     }, {});
-    console.log('results');
-    console.log(results);
     this.setState({derivedStats: results})
   }
 
