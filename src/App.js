@@ -131,19 +131,19 @@ export default class App extends React.Component {
         />
         <div style={{display: 'flex', flexFlow: 'row nowrap', alignItems: 'center', justifyContent: 'center'}}>
           <Paper style={paperStyles} >
-            totalrooms: {this.state.derivedStats.totalRooms}
+            TripLists Created: {this.state.derivedStats.totalRooms}
           </Paper>
           <Paper style={paperStyles} >
-            rooms with locations: {this.state.derivedStats.hasLocation}
+            Locations Explored:  {this.state.derivedStats.hasLocation}
           </Paper>
           <Paper style={paperStyles} >
-            Total Number of Activities: {_.reduce(this.state.derivedStats.playlistsPerRoom, (acc, value, i) => {
+            Activities Planned: {_.reduce(this.state.derivedStats.playlistsPerRoom, (acc, value, i) => {
                 console.log('calculating')
                 return acc + value*parseInt(i);
           }, 0)}
           </Paper>
           <Paper style={paperStyles} >
-            Total Number of Messages: {_.reduce(this.state.derivedStats.messagesPerRoom, (acc, value, i) => {
+           Messages sent: {_.reduce(this.state.derivedStats.messagesPerRoom, (acc, value, i) => {
             return acc + value*parseInt(i);
           }, 0)}
           </Paper>
