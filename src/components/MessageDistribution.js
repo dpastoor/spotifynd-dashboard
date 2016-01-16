@@ -8,10 +8,7 @@ export default class MessageDistribution extends React.Component {
 
   render() {
     return (
-      <div style={{
-        padding: 10,
-        borderColor: 'black'
-      }}>data {this.props.val} </div>
+      <div> data {this.props.val} </div>
     )
   }
 }

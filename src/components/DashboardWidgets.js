@@ -10,21 +10,28 @@ export default class DashboardWidgets extends React.Component {
   }
 
   render() {
-    let data = [1, 2, 3, 4]
+    let data = [1, 2 ];
     let dashboardWidgets = _.map(data, (a, i) => (
-      <Card
-        key={i}
+      <div
         style={{
         flex: 1,
-        width: '40vw',
-        margin: 10,
-        height: '40vh'
+        width: '100%',
+        height: '95%',
+        padding: '2vh'
         }}
       >
-        <MessageDistribution
-          val={i}
-        />
-      </Card>
+        <Card
+          key={i}
+          style={{
+          width: '100%',
+          height: '100%'
+          }}
+        >
+          <MessageDistribution
+            val={i}
+          />
+        </Card>
+      </div>
       )
     );
 
@@ -32,10 +39,9 @@ export default class DashboardWidgets extends React.Component {
 
           <div style={{
                 display: 'flex',
-                flexFlow: 'row wrap',
-                maxWidth: 1200,
+                flexWrap: 'wrap',
                 width: '100%',
-                margin: '30px auto 30px'
+                height: '50%'
                 }}>
             {dashboardWidgets}
           </div>
