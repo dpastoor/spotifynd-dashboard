@@ -33,7 +33,7 @@ export default class AreaChartWidget extends React.Component {
       }}>
         <AreaChart
           data={processedData}
-          width="100%"
+          width={window.innerWidth/2.2}
           height={300}
           viewBoxObject={{
               x: 0,
