@@ -15,7 +15,8 @@ export default class AreaChartWidget extends React.Component {
   render() {
     //want the createdAt array
     // each object has createdAt, populatedRooms, totalRooms
-    let data = this.props.data;
+    // TODO: much better error checking needed
+    let data = this.props.data || {createdAt: new Date(), populatedRooms: 0, totalRooms: 0};
     let processedData = [
       {name: 'populated', values: []},
       {name: 'total', values: []}
@@ -43,7 +44,6 @@ export default class AreaChartWidget extends React.Component {
           xAxisLabel="Time"
           yAxisLabel="Trips Planned and Total Rooms"
           xAxisTickInterval={{unit: 'hour', interval: 2}}
-          title="Area Chart"
         />
       </Paper>
     );
